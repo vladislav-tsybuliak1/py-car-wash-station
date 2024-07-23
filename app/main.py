@@ -1,8 +1,10 @@
 class Car:
-    def __init__(self,
-                 comfort_class: int,
-                 clean_mark: int,
-                 brand: str) -> None:
+    def __init__(
+            self,
+            comfort_class: int,
+            clean_mark: int,
+            brand: str
+    ) -> None:
         if not (1 <= comfort_class <= 7):
             raise ValueError("comfort_class must be from 1 to 7")
         if not (1 <= clean_mark <= 10):
@@ -14,12 +16,13 @@ class Car:
 
 
 class CarWashStation:
-    def __init__(self,
-                 distance_from_city_center: float,
-                 clean_power: int,
-                 average_rating: float,
-                 count_of_ratings: int
-                 ) -> None:
+    def __init__(
+            self,
+            distance_from_city_center: float,
+            clean_power: int,
+            average_rating: float,
+            count_of_ratings: int
+    ) -> None:
         if not (1.0 <= distance_from_city_center <= 10.0):
             raise ValueError("distance_from_city_center must be from 1 to 10")
         if not (1 <= clean_power <= 10):
@@ -40,12 +43,14 @@ class CarWashStation:
         return income
 
     def calculate_washing_price(self, car: Car) -> float:
-        return round(((car.comfort_class
-                       * (self.clean_power
-                          - car.clean_mark)
-                       * self.average_rating)
-                      / self.distance_from_city_center), 1) \
-            if car.clean_mark < self.clean_power else 0
+        return round(
+            (
+                car.comfort_class
+                * (self.clean_power - car.clean_mark)
+                * self.average_rating
+            ) / self.distance_from_city_center,
+            1
+        ) if car.clean_mark < self.clean_power else 0
 
     def wash_single_car(self, car: Car) -> None:
         if car.clean_mark < self.clean_power:
@@ -54,6 +59,6 @@ class CarWashStation:
     def rate_service(self, rate: int) -> None:
         total_rates_before_rate = self.count_of_ratings * self.average_rating
         self.count_of_ratings += 1
-        self.average_rating = round(((total_rates_before_rate
-                                      + rate)
-                                     / self.count_of_ratings), 1)
+        self.average_rating = round(
+            ((total_rates_before_rate + rate) / self.count_of_ratings), 1
+        )
